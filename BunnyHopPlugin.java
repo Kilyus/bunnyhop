@@ -58,9 +58,7 @@ public class BunnyHopPlugin extends JavaPlugin implements Listener {
             @Override
             public void run() {
                 if (System.currentTimeMillis() - groundTouchTime.getOrDefault(playerId, 0L) > 200) {
-                    // Reset toàn bộ vận tốc khi tiếp đất
-                    speedFactors.put(playerId, 0.0); // Reset tốc độ về 0 để tránh bị đẩy
-                    player.setVelocity(new Vector(0, player.getVelocity().getY(), 0)); // Reset vận tốc hoàn toàn
+                    speedFactors.put(playerId, 0.2852); // Đặt tốc độ về mặc định
                 }
             }
         }.runTaskLater(this, 4L); // 0.2 giây = 4 tick
@@ -93,7 +91,7 @@ public class BunnyHopPlugin extends JavaPlugin implements Listener {
         double z = Math.cos(radians);  // Hướng Z
 
         // Lấy tốc độ hiện tại của người chơi và áp dụng tốc độ tăng dần
-        double currentSpeed = speedFactors.getOrDefault(playerId, 0.0); // Tốc độ mặc định 0 khi vừa chạm đất
+        double currentSpeed = speedFactors.getOrDefault(playerId, 0.2852); // Tốc độ mặc định
 
         // Áp dụng vận tốc mới cho người chơi
         velocity.setX(x * currentSpeed);
@@ -105,11 +103,9 @@ public class BunnyHopPlugin extends JavaPlugin implements Listener {
 
     private void increaseSpeed(UUID playerId) {
         // Lấy tốc độ hiện tại và tăng nhẹ tốc độ mỗi khi xoay
-        double currentSpeed = speedFactors.getOrDefault(playerId, 0.0); // Tốc độ mặc định là 0 khi chưa tăng tốc
+        double currentSpeed = speedFactors.getOrDefault(playerId, 0.2852); // Tốc độ mặc định
         currentSpeed += 0.01; // Tăng tốc độ nhẹ
 
-        // Cập nhật tốc độ người chơi
         speedFactors.put(playerId, currentSpeed);
     }
 }
-// lỗi không reset vận tốc, khi chạm đất hơn 0.2s, khi chạy nhảy lại thì bị đẩy bởi vận tốc cú
