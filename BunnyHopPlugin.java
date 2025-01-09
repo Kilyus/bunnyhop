@@ -112,3 +112,4 @@ public class BunnyHopPlugin extends JavaPlugin implements Listener {
         speedFactors.put(playerId, currentSpeed);
     }
 }
+// lỗi không reset vận tốc, khi chạm đất hơn 0.2s, khi chạy nhảy lại thì bị đẩy bởi vận tốc cú
